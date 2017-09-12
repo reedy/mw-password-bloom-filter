@@ -29,4 +29,4 @@ echo sprintf(
 	$totalTime
 );
 
-file_put_contents( '10_million_password_list_top_100000.ser', $filter->serialize() );
+file_put_contents( 'output/MakinaCorpus.ser', $filter->serialize() );

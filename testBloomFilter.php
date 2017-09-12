@@ -8,7 +8,7 @@ $totalTime = -microtime( true );
 
 $filter = new BloomFilter();
 
-$serFile = '10_million_password_list_top_100000.ser';
+$serFile = 'output/MakinaCorpus.ser';
 if ( !file_exists( $serFile ) ) {
 	echo "Can't open $serFile. Have you run createBloomFilter.php first?\n";
 	return;
