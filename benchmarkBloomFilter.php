@@ -16,6 +16,7 @@ foreach ( BloomFilterWrapper::getFilterNames() as $filterName ) {
 
 	echo sprintf( "\nBuilding $filterName bloom filter for 100000 passwords in %.1f seconds\n", $totalTime );
 
+	$totalTime = -microtime( true );
 	$failCount = 0;
 	foreach( $passwords as $password ) {
 		if ( !$filter->get( $password ) ) {
@@ -28,5 +29,5 @@ foreach ( BloomFilterWrapper::getFilterNames() as $filterName ) {
 
 	$totalTime += microtime( true );
 
-	echo sprintf( "\nTesting $filterName bloom filter for 100000 passwords in %.1f seconds\n", $totalTime );
+	echo sprintf( "Testing $filterName bloom filter for 100000 passwords in %.1f seconds\n", $totalTime );
 }

@@ -26,5 +26,5 @@ foreach ( BloomFilterWrapper::getSerialisableFilterNames() as $filterName ) {
 
 	$totalTime += microtime( true );
 
-	echo sprintf( "\nTesting $filterName bloom filter for 100000 passwords in %.1f seconds\n", $totalTime );
+	echo sprintf( "Testing $filterName bloom filter for 100000 passwords in %.1f seconds\n", $totalTime );
 }

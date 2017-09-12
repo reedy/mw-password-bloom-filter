@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 abstract class BloomFilterWrapper {
 
@@ -14,7 +14,7 @@ abstract class BloomFilterWrapper {
 		switch ( strtolower( $name ) ) {
 
 			case 'dsx724':
-				require_once 'dsx724/bloomfilter.php';
+				require_once 'filters/dsx724Wrapper.php';
 				return new dsx724Wrapper();
 
 			case 'makinacorpus':
