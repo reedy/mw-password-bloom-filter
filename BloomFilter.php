@@ -15,7 +15,23 @@ abstract class BloomFilter {
 
 			case 'makinacorpus':
 				require_once 'filters/MakinaCorpus.php';
-				return new MakinaCorpus;
+				return new MakinaCorpus();
+
+			case 'maxwilms':
+				require_once 'filters/MaxWilms.php';
+				return new MaxWilms();
+
+			case 'mrspartak':
+				require_once 'filters/MrSpartak.php';
+				return new MrSpartak();
+
+			case 'pleonasm':
+				require_once 'filters/Pleonasm.php';
+				return new Pleonasm();
+
+			case 'rocketlabs':
+				require_once 'filters/RocketLabs.php';
+				return new RocketLabs();
 
 			default:
 				// fail
