@@ -24,6 +24,13 @@ abstract class BloomFilter {
 	}
 
 	/**
+	 * @return array
+	 */
+	public static function getFilterNames() {
+		return [ 'MakinaCorpus', 'MrSpartak', 'RocketLabs' ];
+	}
+
+	/**
 	 * @param string $name
 	 * @return bool
 	 */
