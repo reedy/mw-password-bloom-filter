@@ -14,10 +14,17 @@ class MakinaCorpus extends BloomFilter {
 		$this->serializedFilename = dirname( __DIR__ ) . '/output/MakinaCorpus.ser';
 	}
 
+	/**
+	 * @param string $name
+	 * @return bool
+	 */
 	public function get( $name ) {
 		return $this->filter->check( $name );
 	}
 
+	/**
+	 * @param string $name
+	 */
 	public function set( $name ) {
 		$this->filter->set( $name );
 	}
