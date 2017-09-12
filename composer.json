@@ -1,0 +1,5 @@
+{
+  "require": {
+    "makinacorpus/php-bloom": "2.0.1"
+  }
+}
