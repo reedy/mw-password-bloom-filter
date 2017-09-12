@@ -15,6 +15,7 @@ foreach ( BloomFilterWrapper::getSerialisableFilterNames() as $filterName ) {
 	}
 
 	$failCount = 0;
+	shuffle( $passwords );
 	foreach( $passwords as $password ) {
 		if ( !$filter->get( $password ) ) {
 			$failCount++;
