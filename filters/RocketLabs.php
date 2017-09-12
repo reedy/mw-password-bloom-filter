@@ -1,17 +1,29 @@
 <?php
 
 use \RocketLabs\BloomFilter\BloomFilter as RocketLabsBloomFilter;
+use RocketLabs\BloomFilter\Persist\BitString;
 
 class RocketLabs extends BloomFilter {
 
+	/**
+	 * @var RocketLabsBloomFilter
+	 */
 	private $filter;
 
+	/**
+	 * @var BitString
+	 */
+	private $bitString;
+
 	public function __construct() {
+		$this->bitString = new BitString();
 		$this->filter = RocketLabsBloomFilter::createFromApproximateSize(
-			null,
+			$this->bitString,
 			100000,
 			0.001
 		);
+		$this->serializedFilename = dirname( __DIR__ ) . '/output/RocketLabs.ser';
+
 	}
 
 	/**
@@ -30,10 +42,18 @@ class RocketLabs extends BloomFilter {
 	}
 
 	public function unserialize() {
-		// TODO: Implement unserialize() method.
+		$this->bitString = BitString::createFromString( file_get_contents( $this->serializedFilename ) );
+		$this->filter = RocketLabsBloomFilter::createFromApproximateSize(
+			$this->bitString,
+			100000,
+			0.001
+		);
 	}
 
 	public function serialize() {
-		// TODO: Implement serialize() method.
+		file_put_contents(
+			$this->serializedFilename,
+			$this->bitString->toString()
+		);
 	}
 }
