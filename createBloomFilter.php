@@ -14,9 +14,12 @@ if ( $file = fopen("10_million_password_list_top_100000.txt", "r" ) ) {
 		if ( !$line ) {
 			continue;
 		}
-		$filter->set( fgets( $file ) );
+		$filter->set( $line);
 	}
 	fclose( $file );
+} else {
+	echo "Cannot open 10_million_password_list_top_100000.txt. Giving up :(\n";
+	return;
 }
 
 $totalTime += microtime( true );
