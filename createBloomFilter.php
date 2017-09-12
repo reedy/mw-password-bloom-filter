@@ -1,12 +1,10 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
-
-use MakinaCorpus\Bloom\BloomFilter;
+require_once 'BloomFilter.php';
 
 $totalTime = -microtime( true );
 
-$filter = new BloomFilter( 100000, 0.001 );
+$filter = BloomFilter::newFromName( 'MakinaCorpus' );
 
 if ( $file = fopen("10_million_password_list_top_100000.txt", "r" ) ) {
 	while( !feof( $file ) ) {
@@ -14,7 +12,7 @@ if ( $file = fopen("10_million_password_list_top_100000.txt", "r" ) ) {
 		if ( !$line ) {
 			continue;
 		}
-		$filter->set( $line);
+		$filter->set( $line );
 	}
 	fclose( $file );
 } else {
@@ -25,8 +23,17 @@ if ( $file = fopen("10_million_password_list_top_100000.txt", "r" ) ) {
 $totalTime += microtime( true );
 
 echo sprintf(
-	"\nBuilding bloom filter for 100000 passwords %.1f seconds\n",
+	"\nBuilding bloom filter for 100000 passwords in %.1f seconds\n",
 	$totalTime
 );
 
-file_put_contents( 'output/MakinaCorpus.ser', $filter->serialize() );
+$totalTime = -microtime( true );
+
+$filter->serialize();
+
+$totalTime += microtime( true );
+
+echo sprintf(
+	"\nSerialized bloom filter for 100000 passwords in %.1f seconds\n",
+	$totalTime
+);
