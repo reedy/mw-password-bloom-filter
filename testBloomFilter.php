@@ -9,6 +9,7 @@ $filter = BloomFilter::newFromName( 'MakinaCorpus' );
 try {
 	$filter->unserialize();
 } catch (Exception $ex) {
+	return;
 }
 
 $failCount = 0;
@@ -28,6 +29,8 @@ if ( $file = fopen("10_million_password_list_top_100000.txt", "r" ) ) {
 	echo "Cannot open 10_million_password_list_top_100000.txt. Giving up :(\n";
 	return;
 }
+
+echo "$failCount missing items from the bloom filter.\n";
 
 $totalTime += microtime( true );
 
