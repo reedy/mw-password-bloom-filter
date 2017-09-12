@@ -13,6 +13,10 @@ abstract class BloomFilterWrapper {
 	public static function newFromName( $name ) {
 		switch ( strtolower( $name ) ) {
 
+			case 'dsx724':
+				require_once 'dsx724/bloomfilter.php';
+				return new dsx724Wrapper();
+
 			case 'makinacorpus':
 				require_once 'filters/MakinaCorpusWrapper.php';
 				return new MakinaCorpusWrapper();
