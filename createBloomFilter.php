@@ -2,23 +2,14 @@
 
 require_once 'BloomFilterWrapper.php';
 
-foreach ( BloomFilterWrapper::getFilterNames() as $filterName ) {
+$passwords = BloomFilterWrapper::getPasswords();
+foreach ( BloomFilterWrapper::getSerialisableFilterNames() as $filterName ) {
 	$totalTime = -microtime( true );
 
 	$filter = BloomFilterWrapper::newFromName( $filterName );
 
-	if ( $file = fopen( "10_million_password_list_top_100000.txt", "r" ) ) {
-		while ( !feof( $file ) ) {
-			$line = trim( fgets( $file ) );
-			if ( !$line ) {
-				continue;
-			}
-			$filter->set( $line );
-		}
-		fclose( $file );
-	} else {
-		echo "Cannot open 10_million_password_list_top_100000.txt. Giving up :(\n";
-		return;
+	foreach( $passwords as $password ) {
+		$filter->set( $password );
 	}
 
 	$totalTime += microtime( true );

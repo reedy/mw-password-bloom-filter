@@ -46,8 +46,49 @@ abstract class BloomFilterWrapper {
 	/**
 	 * @return array
 	 */
-	public static function getFilterNames() {
+	public static function getSerialisableFilterNames() {
 		return [ 'MakinaCorpus', 'MrSpartak', 'RocketLabs' ];
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getNonSerialisableFilterNames() {
+		return [ 'dsx724', 'MaxWilms', 'Pleonasm' ];
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getFilterNames() {
+		$names = array_merge( self::getSerialisableFilterNames(), self::getNonSerialisableFilterNames() );
+		sort( $names );
+		return $names;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getPasswords() {
+		static $ret = [];
+
+		if ( count( $ret ) ) {
+			return $ret;
+		}
+
+		if ( $file = fopen( "10_million_password_list_top_100000.txt", "r" ) ) {
+			while ( !feof( $file ) ) {
+				$line = trim( fgets( $file ) );
+				if ( !$line ) {
+					continue;
+				}
+				$ret[] = $line;
+			}
+			fclose( $file );
+		} else {
+			echo "Cannot open 10_million_password_list_top_100000.txt. Giving up :(\n";
+		}
+		return $ret;
 	}
 
 	/**
