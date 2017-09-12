@@ -1,5 +1,8 @@
 {
   "require": {
-    "makinacorpus/php-bloom": "2.0.1"
+    "makinacorpus/php-bloom": "2.0.1",
+    "maxwilms/bloom-filter": "0.9.3",
+    "pleonasm/bloom-filter": "dev-master",
+    "rocket-labs/bloom-filter": "1.0"
   }
 }
