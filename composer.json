@@ -1,7 +1,14 @@
 {
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/mrspartak/php.bloom.filter"
+    }
+  ],
   "require": {
     "makinacorpus/php-bloom": "2.0.1",
     "maxwilms/bloom-filter": "0.9.3",
+    "mrspartak/php.bloom.filter": "dev-master",
     "pleonasm/bloom-filter": "dev-master",
     "rocket-labs/bloom-filter": "1.0"
   }
