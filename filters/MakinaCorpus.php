@@ -27,7 +27,7 @@ class MakinaCorpus extends BloomFilter {
 			echo "Can't open {$this->serializedFilename}. Have you run createBloomFilter.php first?\n";
 			throw new Exception();
 		}
-		$this->filter->unserialize( $this->serializedFilename );
+		$this->filter->unserialize( file_get_contents( $this->serializedFilename ) );
 	}
 
 	public function serialize() {
