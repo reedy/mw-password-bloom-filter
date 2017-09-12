@@ -1,7 +1,10 @@
 <?php
 
-class MrSpartak extends BloomFilter {
+class MrSpartakWrapper extends BloomFilterWrapper {
 
+	/**
+	 * @var Bloom
+	 */
 	private $filter;
 
 	public function __construct() {

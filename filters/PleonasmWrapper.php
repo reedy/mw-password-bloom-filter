@@ -1,16 +1,16 @@
 <?php
 
-use maxwilms\BloomFilter\BloomFilterGenerator;
+use Pleo\BloomFilter\BloomFilter;
 
-class MaxWilms extends BloomFilter {
+class PleonasmWrapper extends BloomFilterWrapper {
 
 	/**
-	 * @var \maxwilms\BloomFilter\BloomFilter
+	 * @var BloomFilter
 	 */
 	private $filter;
 
 	public function __construct() {
-		$this->filter = BloomFilterGenerator::generate(100000, 0.001 );
+		$this->filter = BloomFilter::create( 100000, 0.001 );
 	}
 
 	/**
@@ -18,7 +18,7 @@ class MaxWilms extends BloomFilter {
 	 * @return bool
 	 */
 	public function get( $name ) {
-		return $this->filter->contains( $name );
+		return $this->filter->exists( $name );
 	}
 
 	/**

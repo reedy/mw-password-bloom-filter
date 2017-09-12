@@ -3,7 +3,7 @@
 use \RocketLabs\BloomFilter\BloomFilter as RocketLabsBloomFilter;
 use RocketLabs\BloomFilter\Persist\BitString;
 
-class RocketLabs extends BloomFilter {
+class RocketLabsWrapper extends BloomFilterWrapper {
 
 	/**
 	 * @var RocketLabsBloomFilter

@@ -1,11 +1,11 @@
 <?php
 
-require_once 'BloomFilter.php';
+require_once 'BloomFilterWrapper.php';
 
-foreach ( BloomFilter::getFilterNames() as $filterName ) {
+foreach ( BloomFilterWrapper::getFilterNames() as $filterName ) {
 	$totalTime = -microtime( true );
 
-	$filter = BloomFilter::newFromName( 'MakinaCorpus' );
+	$filter = BloomFilterWrapper::newFromName( 'MakinaCorpus' );
 
 	try {
 		$filter->unserialize();

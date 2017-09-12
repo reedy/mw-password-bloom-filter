@@ -1,11 +1,11 @@
 <?php
 
-require_once 'BloomFilter.php';
+require_once 'BloomFilterWrapper.php';
 
-foreach ( BloomFilter::getFilterNames() as $filterName ) {
+foreach ( BloomFilterWrapper::getFilterNames() as $filterName ) {
 	$totalTime = -microtime( true );
 
-	$filter = BloomFilter::newFromName( $filterName );
+	$filter = BloomFilterWrapper::newFromName( $filterName );
 
 	if ( $file = fopen( "10_million_password_list_top_100000.txt", "r" ) ) {
 		while ( !feof( $file ) ) {

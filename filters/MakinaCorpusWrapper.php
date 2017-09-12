@@ -1,16 +1,16 @@
 <?php
 
-use MakinaCorpus\Bloom\BloomFilter as MakinaCorpusBloomFilter;
+use MakinaCorpus\Bloom\BloomFilter;
 
-class MakinaCorpus extends BloomFilter {
+class MakinaCorpusWrapper extends BloomFilterWrapper {
 
 	/**
-	 * @var MakinaCorpusBloomFilter
+	 * @var BloomFilter
 	 */
 	private $filter;
 
 	public function __construct() {
-		$this->filter = new MakinaCorpusBloomFilter( 100000, 0.001 );
+		$this->filter = new BloomFilter( 100000, 0.001 );
 		$this->serializedFilename = dirname( __DIR__ ) . '/output/MakinaCorpus.ser';
 	}
 

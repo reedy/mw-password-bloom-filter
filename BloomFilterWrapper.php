@@ -2,36 +2,36 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-abstract class BloomFilter {
+abstract class BloomFilterWrapper {
 
 	protected $serializedFilename;
 
 	/**
 	 * @param $name
-	 * @return BloomFilter
+	 * @return BloomFilterWrapper
 	 */
 	public static function newFromName( $name ) {
 		switch ( strtolower( $name ) ) {
 
 			case 'makinacorpus':
-				require_once 'filters/MakinaCorpus.php';
-				return new MakinaCorpus();
+				require_once 'filters/MakinaCorpusWrapper.php';
+				return new MakinaCorpusWrapper();
 
 			case 'maxwilms':
-				require_once 'filters/MaxWilms.php';
-				return new MaxWilms();
+				require_once 'filters/MaxWilmsWrapper.php';
+				return new MaxWilmsWrapper();
 
 			case 'mrspartak':
-				require_once 'filters/MrSpartak.php';
-				return new MrSpartak();
+				require_once 'filters/MrSpartakWrapper.php';
+				return new MrSpartakWrapper();
 
 			case 'pleonasm':
-				require_once 'filters/Pleonasm.php';
-				return new Pleonasm();
+				require_once 'filters/PleonasmWrapper.php';
+				return new PleonasmWrapper();
 
 			case 'rocketlabs':
-				require_once 'filters/RocketLabs.php';
-				return new RocketLabs();
+				require_once 'filters/RocketLabsWrapper.php';
+				return new RocketLabsWrapper();
 
 			default:
 				// fail
