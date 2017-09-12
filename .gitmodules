@@ -1,0 +1,3 @@
+[submodule "dsx724"]
+	path = dsx724
+	url = https://github.com/dsx724/php-bloom-filter.git
