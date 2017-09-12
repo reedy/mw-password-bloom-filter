@@ -10,7 +10,7 @@ $filter = new BloomFilter( 100000, 0.001 );
 
 if ( $file = fopen("10_million_password_list_top_100000.txt", "r" ) ) {
 	while( !feof( $file ) ) {
-		$line = fgets( $file );
+		$line = trim( fgets( $file ) );
 		if ( !$line ) {
 			continue;
 		}
