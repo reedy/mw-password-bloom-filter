@@ -11,6 +11,7 @@ class MaxWilmsWrapper extends BloomFilterWrapper {
 
 	public function __construct() {
 		$this->filter = BloomFilterGenerator::generate(100000, 0.001 );
+		$this->serializedFilename = dirname( __DIR__ ) . '/output/MaxWilms.ser';
 	}
 
 	/**
@@ -29,10 +30,17 @@ class MaxWilmsWrapper extends BloomFilterWrapper {
 	}
 
 	public function unserialize() {
-		// TODO: Implement unserialize() method.
+		if ( !file_exists( $this->serializedFilename ) ) {
+			echo "Can't open {$this->serializedFilename}. Have you run createBloomFilter.php first?\n";
+			throw new Exception();
+		}
+		$this->filter = unserialize( file_get_contents( $this->serializedFilename ) );
 	}
 
 	public function serialize() {
-		// TODO: Implement serialize() method.
+		file_put_contents(
+			$this->serializedFilename,
+			serialize( $this->filter )
+		);
 	}
 }

@@ -47,14 +47,14 @@ abstract class BloomFilterWrapper {
 	 * @return array
 	 */
 	public static function getSerialisableFilterNames() {
-		return [ 'MakinaCorpus', 'MrSpartak', 'RocketLabs' ];
+		return [ 'MakinaCorpus', 'MaxWilms', 'MrSpartak', 'RocketLabs' ];
 	}
 
 	/**
 	 * @return array
 	 */
 	public static function getNonSerialisableFilterNames() {
-		return [ 'dsx724', 'MaxWilms', 'Pleonasm' ];
+		return [ 'dsx724', 'Pleonasm' ];
 	}
 
 	/**
