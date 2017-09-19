@@ -6,7 +6,7 @@
     }
   ],
   "require": {
-    "makinacorpus/php-bloom": "2.0.1",
+    "makinacorpus/php-bloom": "2.0.2",
     "maxwilms/bloom-filter": "0.9.3",
     "mrspartak/php.bloom.filter": "dev-master",
     "pleonasm/bloom-filter": "dev-master",
