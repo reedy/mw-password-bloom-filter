@@ -45,10 +45,19 @@ abstract class BloomFilterWrapper {
 	}
 
 	/**
+	 * Some filters don't make reproducible builds. CBA with that
+	 *
+	 * @return array
+	 */
+	public static function getNonStableBuildFilterNames() {
+		return [ 'MrSpartak', 'RocketLabs' ];
+	}
+
+	/**
 	 * @return array
 	 */
 	public static function getSerialisableFilterNames() {
-		return [ 'MakinaCorpus', 'MaxWilms', 'MrSpartak', 'Pleonasm', 'RocketLabs' ];
+		return [ 'MakinaCorpus', 'MaxWilms', 'Pleonasm' ];
 	}
 
 	/**
@@ -59,10 +68,14 @@ abstract class BloomFilterWrapper {
 	}
 
 	/**
+	 * @param bool $includeUnstable
 	 * @return array
 	 */
-	public static function getFilterNames() {
+	public static function getFilterNames( $includeUnstable = false ) {
 		$names = array_merge( self::getSerialisableFilterNames(), self::getNonSerialisableFilterNames() );
+		if ( $includeUnstable ) {
+			$names = array_merge( $names, self::getNonStableBuildFilterNames() );
+		}
 		sort( $names );
 		return $names;
 	}
