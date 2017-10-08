@@ -7,35 +7,36 @@ abstract class BloomFilterWrapper {
 	protected $serializedFilename;
 
 	/**
-	 * @param $name
+	 * @param string $name
+	 * @param float $probability
 	 * @return BloomFilterWrapper
 	 */
-	public static function newFromName( $name ) {
+	public static function newFromName( $name, $probability = 0.001 ) {
 		switch ( strtolower( $name ) ) {
 
 			case 'dsx724':
 				require_once 'filters/dsx724Wrapper.php';
-				return new dsx724Wrapper();
+				return new dsx724Wrapper( $probability );
 
 			case 'makinacorpus':
 				require_once 'filters/MakinaCorpusWrapper.php';
-				return new MakinaCorpusWrapper();
+				return new MakinaCorpusWrapper( $probability );
 
 			case 'maxwilms':
 				require_once 'filters/MaxWilmsWrapper.php';
-				return new MaxWilmsWrapper();
+				return new MaxWilmsWrapper( $probability );
 
 			case 'mrspartak':
 				require_once 'filters/MrSpartakWrapper.php';
-				return new MrSpartakWrapper();
+				return new MrSpartakWrapper( $probability );
 
 			case 'pleonasm':
 				require_once 'filters/PleonasmWrapper.php';
-				return new PleonasmWrapper();
+				return new PleonasmWrapper( $probability );
 
 			case 'rocketlabs':
 				require_once 'filters/RocketLabsWrapper.php';
-				return new RocketLabsWrapper();
+				return new RocketLabsWrapper( $probability );
 
 			default:
 				// fail
