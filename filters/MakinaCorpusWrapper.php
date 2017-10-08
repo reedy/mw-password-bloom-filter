@@ -9,9 +9,12 @@ class MakinaCorpusWrapper extends BloomFilterWrapper {
 	 */
 	private $filter;
 
-	public function __construct() {
-		$this->filter = new BloomFilter( 100000, 0.001 );
-		$this->serializedFilename = dirname( __DIR__ ) . '/output/MakinaCorpus.ser';
+	/**
+	 * @param float $probability
+	 */
+	public function __construct( $probability = 0.001 ) {
+		$this->filter = new BloomFilter( 100000, $probability );
+		$this->serializedFilename = dirname( __DIR__ ) . "/output/MakinaCorpus-$probability.ser";
 	}
 
 	/**

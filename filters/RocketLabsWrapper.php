@@ -15,14 +15,23 @@ class RocketLabsWrapper extends BloomFilterWrapper {
 	 */
 	private $bitString;
 
-	public function __construct() {
+	/**
+	 * @var float
+	 */
+	private $probability;
+
+	/**
+	 * @param float $probability
+	 */
+	public function __construct( $probability = 0.001 ) {
 		$this->bitString = new BitString();
 		$this->filter = RocketLabsBloomFilter::createFromApproximateSize(
 			$this->bitString,
 			100000,
-			0.001
+			$probability
 		);
-		$this->serializedFilename = dirname( __DIR__ ) . '/output/RocketLabs.ser';
+		$this->probability = $probability;
+		$this->serializedFilename = dirname( __DIR__ ) . "/output/RocketLabs-$probability.ser";
 
 	}
 
@@ -46,7 +55,7 @@ class RocketLabsWrapper extends BloomFilterWrapper {
 		$this->filter = RocketLabsBloomFilter::createFromApproximateSize(
 			$this->bitString,
 			100000,
-			0.001
+			$this->probability
 		);
 	}
 

@@ -9,8 +9,11 @@ class dsx724Wrapper extends BloomFilterWrapper {
 	 */
 	private $filter;
 
-	public function __construct() {
-		$this->filter = BloomFilter::createFromProbability( 100000, 0.001 );
+	/**
+	 * @param float $probability
+	 */
+	public function __construct( $probability = 0.001 ) {
+		$this->filter = BloomFilter::createFromProbability( 100000, $probability );
 	}
 
 	/**

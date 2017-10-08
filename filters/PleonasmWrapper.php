@@ -9,9 +9,12 @@ class PleonasmWrapper extends BloomFilterWrapper {
 	 */
 	private $filter;
 
-	public function __construct() {
-		$this->filter = BloomFilter::init( 100000, 0.001 );
-		$this->serializedFilename = dirname( __DIR__ ) . '/output/Pleonasm.json';
+	/**
+	 * @param float $probability
+	 */
+	public function __construct( $probability = 0.001 ) {
+		$this->filter = BloomFilter::init( 100000, $probability );
+		$this->serializedFilename = dirname( __DIR__ ) . "/output/Pleonasm-$probability.json";
 	}
 
 	/**

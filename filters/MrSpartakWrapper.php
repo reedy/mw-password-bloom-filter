@@ -7,14 +7,17 @@ class MrSpartakWrapper extends BloomFilterWrapper {
 	 */
 	private $filter;
 
-	public function __construct() {
+	/**
+	 * @param float $probability
+	 */
+	public function __construct( $probability = 0.001 ) {
 		$this->filter = new Bloom(
 			[
 				'entries_max' => 100000,
-				'error_chance' => 0.001,
+				'error_chance' => $probability,
 			]
 		);
-		$this->serializedFilename = dirname( __DIR__ ) . '/output/MrSpartak.ser';
+		$this->serializedFilename = dirname( __DIR__ ) . "/output/MrSpartak-$probability.ser";
 	}
 
 	/**
