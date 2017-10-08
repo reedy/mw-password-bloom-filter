@@ -9,7 +9,7 @@
     "makinacorpus/php-bloom": "2.0.2",
     "maxwilms/bloom-filter": "0.9.3",
     "mrspartak/php.bloom.filter": "dev-master",
-    "pleonasm/bloom-filter": "dev-master",
+    "pleonasm/bloom-filter": "1.0.0",
     "rocket-labs/bloom-filter": "1.0"
   }
 }

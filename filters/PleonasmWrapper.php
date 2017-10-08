@@ -10,7 +10,8 @@ class PleonasmWrapper extends BloomFilterWrapper {
 	private $filter;
 
 	public function __construct() {
-		$this->filter = BloomFilter::create( 100000, 0.001 );
+		$this->filter = BloomFilter::init( 100000, 0.001 );
+		$this->serializedFilename = dirname( __DIR__ ) . '/output/Pleonasm.json';
 	}
 
 	/**
@@ -29,10 +30,17 @@ class PleonasmWrapper extends BloomFilterWrapper {
 	}
 
 	public function unserialize() {
-		// TODO: Implement unserialize() method.
+		if ( !file_exists( $this->serializedFilename ) ) {
+			echo "Can't open {$this->serializedFilename}. Have you run createBloomFilter.php first?\n";
+			throw new Exception();
+		}
+		BloomFilter::initFromJson( json_decode( file_get_contents( $this->serializedFilename ), true ) );
 	}
 
 	public function serialize() {
-		// TODO: Implement serialize() method.
+		file_put_contents(
+			$this->serializedFilename,
+			json_encode( $this->filter )
+		);
 	}
 }
