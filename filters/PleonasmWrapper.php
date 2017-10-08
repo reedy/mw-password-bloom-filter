@@ -34,7 +34,9 @@ class PleonasmWrapper extends BloomFilterWrapper {
 			echo "Can't open {$this->serializedFilename}. Have you run createBloomFilter.php first?\n";
 			throw new Exception();
 		}
-		BloomFilter::initFromJson( json_decode( file_get_contents( $this->serializedFilename ), true ) );
+		$this->filter = BloomFilter::initFromJson(
+			json_decode( file_get_contents( $this->serializedFilename ), true )
+		);
 	}
 
 	public function serialize() {
