@@ -12,67 +12,77 @@ echo sprintf( "Running PHP version %s (%s) on %s %s %s\n",
 
 $passwords = BloomFilterWrapper::getPasswords();
 foreach ( BloomFilterWrapper::getFilterNames() as $filterName ) {
-	$totalTime = -microtime( true );
+	foreach ( [ 0.01, 0.001, 0.0001 ] as $probability ) {
+		$totalTime = -microtime( true );
 
-	$filter = BloomFilterWrapper::newFromName( $filterName );
+		$filter = BloomFilterWrapper::newFromName( $filterName, $probability );
 
-	foreach( $passwords as $password ) {
-		$filter->set( $password );
-	}
-
-	$totalTime += microtime( true );
-
-	echo sprintf( "\nBuilding $filterName bloom filter for 100000 passwords in %.1f seconds\n", $totalTime );
-
-	$totalTime = -microtime( true );
-
-	$failCount = 0;
-	shuffle( $passwords );
-
-	$times = [];
-
-	foreach( $passwords as $password ) {
-		$time = -microtime( true );
-		$res = $filter->get( $password );
-		$time += microtime( true );
-		$times[] = $time;
-		if ( !$res ) {
-			$failCount++;
-			echo "'$password' isn't found by $filterName bloom filter.\n";
+		foreach( $passwords as $password ) {
+			$filter->set( $password );
 		}
+
+		$totalTime += microtime( true );
+
+		echo sprintf(
+			"\nBuilding $filterName bloom filter for 100000 passwords with %.4f probability in %.1f seconds\n",
+			$probability,
+			$totalTime
+		);
+
+		$totalTime = -microtime( true );
+
+		$failCount = 0;
+		shuffle( $passwords );
+
+		$times = [];
+
+		foreach( $passwords as $password ) {
+			$time = -microtime( true );
+			$res = $filter->get( $password );
+			$time += microtime( true );
+			$times[] = $time;
+			if ( !$res ) {
+				$failCount++;
+				echo "'$password' isn't found by $filterName bloom filter.\n";
+			}
+		}
+
+		echo "$failCount missing items from the bloom filter.\n";
+
+		$totalTime += microtime( true );
+
+		echo sprintf(
+			"Testing $filterName bloom filter for 100000 passwords with %.4f probability in %.1f seconds\n",
+			$probability,
+			$totalTime
+		);
+
+		$count = count( $times );
+		sort( $times, SORT_NUMERIC );
+		$min = $times[0];
+		$max = end( $times );
+		if ( $count % 2 ) {
+			$median = $times[ ( $count - 1 ) / 2 ];
+		} else {
+			$median = ( $times[$count / 2] + $times[$count / 2 - 1] ) / 2;
+		}
+		$total = array_sum( $times );
+		$mean = $total / $count;
+
+		addResult( [
+			'name' => $filterName,
+			'count' => $count,
+			'total' => $total,
+			'min' => $min,
+			'median' => $median,
+			'mean' => $mean,
+			'max' => $max,
+			'usage' => [
+				'mem' => memory_get_usage( true ),
+				'mempeak' => memory_get_peak_usage( true ),
+			],
+		] );
 	}
-
-	echo "$failCount missing items from the bloom filter.\n";
-
-	$totalTime += microtime( true );
-
-	echo sprintf( "Testing $filterName bloom filter for 100000 passwords in %.1f seconds\n", $totalTime );
-
-	$count = count( $times );
-	sort( $times, SORT_NUMERIC );
-	$min = $times[0];
-	$max = end( $times );
-	if ( $count % 2 ) {
-		$median = $times[ ( $count - 1 ) / 2 ];
-	} else {
-		$median = ( $times[$count / 2] + $times[$count / 2 - 1] ) / 2;
-	}
-	$total = array_sum( $times );
-	$mean = $total / $count;
-
-	addResult( [
-		'name' => $filterName,
-		'count' => $count,
-		'total' => $total,
-		'min' => $min,
-		'median' => $median,
-		'mean' => $mean,
-		'max' => $max,
-		'usage' => [
-			'mem' => memory_get_usage( true ),
-			'mempeak' => memory_get_peak_usage( true ),
-		],
-	] );
 }
 
 function addResult( $res ) {

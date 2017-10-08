@@ -4,7 +4,6 @@ require_once 'BloomFilterWrapper.php';
 
 $passwords = BloomFilterWrapper::getPasswords();
 foreach ( BloomFilterWrapper::getSerialisableFilterNames() as $filterName ) {
-
 	foreach ( [ 0.01, 0.001, 0.0001 ] as $probability ) {
 		$totalTime = -microtime( true );
 		$filter = BloomFilterWrapper::newFromName( $filterName, $probability );
@@ -24,7 +23,10 @@ foreach ( BloomFilterWrapper::getSerialisableFilterNames() as $filterName ) {
 			}
 		}
 
-		echo "$failCount missing items from the bloom filter.\n";
+		echo sprintf(
+			"$failCount missing items from the $filterName (%.4f probability) bloom filter.\n",
+			$probability
+		);
 
 		$totalTime += microtime( true );
 
